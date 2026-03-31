@@ -2,7 +2,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile.frontend
+      dockerfile: frontend/Dockerfile
     ports:
       - "8080:80"
     depends_on:
@@ -12,7 +12,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: backend/Dockerfile
     ports:
       - "8002:8002"
     environment:
@@ -44,7 +44,7 @@ services:
       MYSQL_ROOT_PASSWORD: change-me
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./hbm_erd_ddl.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - ./data/hbm_erd_ddl.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pchange-me"]

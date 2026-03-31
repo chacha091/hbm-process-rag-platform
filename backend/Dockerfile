@@ -14,15 +14,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Original heavyweight install path kept for reference:
-# COPY requirements.txt ./
+# COPY backend/requirements.txt ./requirements.txt
 # RUN pip install --upgrade pip && pip install -r requirements.txt
-COPY requirements.k8s.txt ./
+COPY backend/requirements.k8s.txt ./requirements.k8s.txt
 RUN pip install --upgrade pip && pip install -r requirements.k8s.txt
 
 # Original backend entrypoint kept in the repository:
-# COPY rag_backend_full.py ./
-COPY backend_api.py ./
-COPY hbm_erd_ddl.sql ./
+# COPY backend/rag_backend_full.py ./rag_backend_full.py
+COPY backend/backend_api.py ./backend_api.py
+COPY data/hbm_erd_ddl.sql ./hbm_erd_ddl.sql
 
 EXPOSE 8002
 
